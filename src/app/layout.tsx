@@ -47,6 +47,9 @@ function Header() {
           <Link href="/case-status" className="text-sm text-slate-700 hover:text-slate-900">
             Статус
           </Link>
+          <Link href="/investors" className="text-sm text-slate-700 hover:text-slate-900">
+           Для інвесторів
+          </Link>
         </nav>
 
         <Link
