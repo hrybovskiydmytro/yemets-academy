@@ -1,24 +1,43 @@
-import { supabase } from "@/lib/supabase";
+export const dynamic = "force-dynamic";
 
 export async function PATCH(
   req: Request,
-  { params }: { params: Promise<{ id: string }> }
+  context: { params: Promise<{ id: string }> }
 ) {
-  const { id } = await params;
-  const body = await req.json();
+  try {
+    const { id } = await context.params;
+    const body = await req.json();
 
-  const { data, error } = await supabase
-    .from("doctors")
-    .update({
-      status: body.status,
-    })
-    .eq("id", id)
-    .select()
-    .single();
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SUPABASE_URL}rest/v1/doctors?id=eq.${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
+          "Content-Type": "application/json",
+          Prefer: "return=representation",
+        },
+        body: JSON.stringify({
+          status: body.status,
+        }),
+      }
+    );
 
-  if (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+    const text = await res.text();
+
+    if (!res.ok) {
+      return Response.json({ error: text }, { status: 500 });
+    }
+
+    return new Response(text, {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (err: any) {
+    return Response.json(
+      { error: err?.message || "Server error" },
+      { status: 500 }
+    );
   }
-
-  return Response.json(data);
 }
