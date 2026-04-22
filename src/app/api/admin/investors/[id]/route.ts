@@ -1,33 +1,36 @@
 export const dynamic = "force-dynamic";
 
-export async function PATCH(
-  req: Request,
-  context: { params: Promise<{ id: string }> }
-) {
+export async function GET() {
   try {
-    const { id } = await context.params;
-    const body = await req.json();
+    const baseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SUPABASE_URL}rest/v1/investors?id=eq.${id}`,
-      {
-        method: "PATCH",
-        headers: {
-          apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
-          "Content-Type": "application/json",
-          Prefer: "return=representation",
-        },
-        body: JSON.stringify({
-          status: body.status,
-        }),
-      }
-    );
+    if (!baseUrl || !anonKey) {
+      return Response.json(
+        { error: "Missing Supabase environment variables" },
+        { status: 500 }
+      );
+    }
+
+    const url = `${baseUrl}/rest/v1/investors?select=*&order=created_at.desc`;
+
+    const res = await fetch(url, {
+      method: "GET",
+      headers: {
+        apikey: anonKey,
+        Authorization: `Bearer ${anonKey}`,
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
+    });
 
     const text = await res.text();
 
     if (!res.ok) {
-      return Response.json({ error: text }, { status: 500 });
+      return new Response(text, {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
     return new Response(text, {
