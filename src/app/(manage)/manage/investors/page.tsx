@@ -2,14 +2,28 @@
 
 import { useEffect, useState } from "react";
 
+const BASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+
 export default function ManageInvestorsPage() {
   const [items, setItems] = useState<any[]>([]);
   const [savingId, setSavingId] = useState<number | null>(null);
 
   const loadInvestors = async () => {
-    const res = await fetch("/api/admin/investors");
+    const res = await fetch(
+      `${BASE_URL}/rest/v1/investors?select=*&order=created_at.desc`,
+      {
+        headers: {
+          apikey: ANON_KEY,
+          Authorization: `Bearer ${ANON_KEY}`,
+          "Content-Type": "application/json",
+        },
+        cache: "no-store",
+      }
+    );
+
     const data = await res.json();
-    setItems(data);
+    setItems(Array.isArray(data) ? data : []);
   };
 
   useEffect(() => {
@@ -18,19 +32,20 @@ export default function ManageInvestorsPage() {
 
   const updateInvestorField = (id: number, field: string, value: string) => {
     setItems((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, [field]: value } : item
-      )
+      prev.map((item) => (item.id === id ? { ...item, [field]: value } : item))
     );
   };
 
   const saveInvestor = async (item: any) => {
     setSavingId(item.id);
 
-    await fetch(`/api/admin/investors/${item.id}`, {
+    await fetch(`${BASE_URL}/rest/v1/investors?id=eq.${item.id}`, {
       method: "PATCH",
       headers: {
+        apikey: ANON_KEY,
+        Authorization: `Bearer ${ANON_KEY}`,
         "Content-Type": "application/json",
+        Prefer: "return=representation",
       },
       body: JSON.stringify({
         status: item.status,
@@ -44,11 +59,7 @@ export default function ManageInvestorsPage() {
   const sendEmail = (item: any) => {
     const subject = encodeURIComponent("Yemets Academy - Investor / Early Access");
     const body = encodeURIComponent(
-      `Hello,\n\n` +
-        `Thank you for your interest in Yemets Academy.\n\n` +
-        `Current status: ${item.status}\n\n` +
-        `We will follow up with additional information.\n\n` +
-        `Best regards,\nYemets Academy`
+      `Hello,\n\nThank you for your interest in Yemets Academy.\n\nCurrent status: ${item.status}\n\nBest regards,\nYemets Academy`
     );
 
     window.location.href = `mailto:${item.email}?subject=${subject}&body=${body}`;

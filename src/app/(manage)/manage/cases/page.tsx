@@ -2,14 +2,28 @@
 
 import { useEffect, useState } from "react";
 
+const BASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+
 export default function ManageCasesPage() {
   const [items, setItems] = useState<any[]>([]);
   const [savingId, setSavingId] = useState<number | null>(null);
 
   const loadCases = async () => {
-    const res = await fetch("/api/admin/cases");
+    const res = await fetch(
+      `${BASE_URL}/rest/v1/cases?select=*&order=created_at.desc`,
+      {
+        headers: {
+          apikey: ANON_KEY,
+          Authorization: `Bearer ${ANON_KEY}`,
+          "Content-Type": "application/json",
+        },
+        cache: "no-store",
+      }
+    );
+
     const data = await res.json();
-    setItems(data);
+    setItems(Array.isArray(data) ? data : []);
   };
 
   useEffect(() => {
@@ -18,19 +32,20 @@ export default function ManageCasesPage() {
 
   const updateCaseField = (id: number, field: string, value: string) => {
     setItems((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, [field]: value } : item
-      )
+      prev.map((item) => (item.id === id ? { ...item, [field]: value } : item))
     );
   };
 
   const saveCase = async (item: any) => {
     setSavingId(item.id);
 
-    await fetch(`/api/admin/cases/${item.id}`, {
+    await fetch(`${BASE_URL}/rest/v1/cases?id=eq.${item.id}`, {
       method: "PATCH",
       headers: {
+        apikey: ANON_KEY,
+        Authorization: `Bearer ${ANON_KEY}`,
         "Content-Type": "application/json",
+        Prefer: "return=representation",
       },
       body: JSON.stringify({
         status: item.status,
