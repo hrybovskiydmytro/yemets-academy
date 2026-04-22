@@ -1,13 +1,41 @@
-import { supabase } from "@/lib/supabase";
-
 export async function POST(req: Request) {
-  const data = await req.json();
+  try {
+    const body = await req.json();
 
-  const { error } = await supabase.from("investors").insert([data]);
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SUPABASE_URL}rest/v1/investors`,
+      {
+        method: "POST",
+        headers: {
+          apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
+          "Content-Type": "application/json",
+          Prefer: "return=minimal",
+        },
+        body: JSON.stringify({
+          full_name: body.full_name,
+          company: body.company,
+          country: body.country,
+          email: body.email,
+          phone: body.phone,
+          interest_type: body.interest_type,
+          budget: body.budget,
+          message: body.message,
+          status: "new",
+        }),
+      }
+    );
 
-  if (error) {
-    return Response.json({ error }, { status: 500 });
+    if (!res.ok) {
+      const text = await res.text();
+      return Response.json({ error: text }, { status: 500 });
+    }
+
+    return Response.json({ success: true });
+  } catch (err: any) {
+    return Response.json(
+      { error: err.message || "Server error" },
+      { status: 500 }
+    );
   }
-
-  return Response.json({ success: true });
 }
