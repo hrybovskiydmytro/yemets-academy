@@ -1,14 +1,21 @@
 import { supabase } from "@/lib/supabase";
 
 export async function GET() {
-  const { data, error } = await supabase
-    .from("investors")
-    .select("*")
-    .order("created_at", { ascending: false });
+  try {
+    const { data, error } = await supabase
+      .from("investors")
+      .select("*")
+      .order("created_at", { ascending: false });
 
-  if (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+    if (error) {
+      return Response.json({ error: error.message }, { status: 500 });
+    }
+
+    return Response.json(data || []);
+  } catch (err: any) {
+    return Response.json(
+      { error: err?.message || "Unexpected server error" },
+      { status: 500 }
+    );
   }
-
-  return Response.json(data || []);
 }
