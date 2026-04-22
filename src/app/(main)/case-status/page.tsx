@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
+const BASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+
 export default function CaseStatusPage() {
   const searchParams = useSearchParams();
   const caseId = searchParams.get("caseId");
@@ -11,34 +14,54 @@ export default function CaseStatusPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!caseId) {
-      setLoading(false);
-      return;
-    }
+    const loadCase = async () => {
+      if (!caseId) {
+        setLoading(false);
+        return;
+      }
 
-    fetch(`/api/case-status/${caseId}`)
-      .then((r) => r.json())
-      .then((data) => {
-        setItem(data);
+      try {
+        const res = await fetch(
+          `${BASE_URL}/rest/v1/cases?id=eq.${caseId}&select=*`,
+          {
+            headers: {
+              apikey: ANON_KEY,
+              Authorization: `Bearer ${ANON_KEY}`,
+              "Content-Type": "application/json",
+            },
+            cache: "no-store",
+          }
+        );
+
+        const data = await res.json();
+
+        if (Array.isArray(data) && data.length > 0) {
+          setItem(data[0]);
+        } else {
+          setItem(null);
+        }
+      } catch {
+        setItem(null);
+      } finally {
         setLoading(false);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
+      }
+    };
+
+    loadCase();
   }, [caseId]);
 
   return (
     <main className="min-h-screen bg-[#F8FAFC] px-6 py-16 md:px-10">
       <div className="mx-auto max-w-3xl rounded-3xl bg-white p-8 shadow-sm">
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#1CA0AB]">
-          Case Status
+          Статус кейсу
         </p>
 
-        <h1 className="mt-4 text-3xl font-semibold">Статус кейсу</h1>
+        <h1 className="mt-4 text-3xl font-semibold">Перевірка статусу</h1>
 
         {loading ? (
           <p className="mt-6 text-slate-600">Завантаження...</p>
-        ) : item && !item.error ? (
+        ) : item ? (
           <div className="mt-8 space-y-4">
             <div className="rounded-2xl bg-[#E8F6F7] p-4">
               <p className="text-sm text-slate-500">Case ID</p>
@@ -65,8 +88,8 @@ export default function CaseStatusPage() {
             )}
 
             <div className="rounded-2xl border border-slate-200 p-4 text-sm text-slate-600">
-              Якщо статус або оплата не оновилися автоматично, використайте
-              індивідуальне посилання з email.
+              Якщо статус не оновився автоматично, використайте посилання з email
+              або зв’яжіться з командою платформи.
             </div>
           </div>
         ) : (
