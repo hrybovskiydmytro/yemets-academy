@@ -1,7 +1,10 @@
-import { supabase } from "@/lib/supabase";
+import { getSupabase } from "@/lib/supabase";
+
+export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {
+    const supabase = getSupabase();
     const data = await req.json();
 
     const { error } = await supabase.from("doctors").insert([
@@ -26,9 +29,9 @@ export async function POST(req: Request) {
     }
 
     return Response.json({ success: true });
-  } catch {
+  } catch (err: any) {
     return Response.json(
-      { success: false, error: "Unexpected server error" },
+      { success: false, error: err.message || "Unexpected server error" },
       { status: 500 }
     );
   }

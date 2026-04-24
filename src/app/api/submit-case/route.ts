@@ -1,9 +1,10 @@
-import { supabase } from "@/lib/supabase";
+import { getSupabase } from "@/lib/supabase";
 
 export async function POST(req: Request) {
   try {
     const data = await req.json();
 
+    const supabase = getSupabase();
     const { data: inserted, error } = await supabase
       .from("cases")
       .insert([
