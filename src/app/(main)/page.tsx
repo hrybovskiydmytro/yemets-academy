@@ -1,240 +1,233 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-white text-slate-900">
-      {/* HERO */}
-      <section className="relative overflow-hidden bg-[#0B1F24]">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(28,160,171,0.35),_transparent_45%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,_rgba(232,59,62,0.08),_transparent_30%)]" />
-
-        <div className="relative mx-auto max-w-7xl px-6 py-24 md:px-10 md:py-32">
-          <div className="max-w-3xl">
-            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.22em] text-[#1CA0AB]">
-              YEMETS ACADEMY
+      <section className="bg-[#F8FAFC]">
+        <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 md:grid-cols-[1.05fr_0.95fr] md:px-10 md:py-28">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#1CA0AB]">
+              Yemets Academy
             </p>
 
-            <h1 className="text-4xl font-semibold leading-tight text-white md:text-6xl">
-              Експертна діагностика серця майбутньої дитини
+            <h1 className="mt-4 text-4xl font-semibold leading-tight md:text-6xl">
+              Онлайн-платформа експертної пренатальної кардіодіагностики
             </h1>
 
-            <p className="mt-4 text-lg text-white/80">
-              Новий стандарт медицини
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600">
+              Ви передаєте медичний кейс, команда експертів перевіряє матеріали,
+              проводить фаховий аналіз і допомагає зрозуміти подальший клінічний
+              маршрут ще до народження дитини.
             </p>
 
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-white/70">
-              Платформа передачі та обробки медичних кейсів для експертного аналізу,
-              маршрутизації та формування клінічного датасету.
-            </p>
+            <div className="mt-8 rounded-3xl bg-white p-6 shadow-sm">
+              <p className="text-sm font-semibold text-slate-900">
+                Простими словами:
+              </p>
+              <div className="mt-4 grid gap-4 md:grid-cols-3">
+                <div className="rounded-2xl bg-[#E8F6F7] p-4 text-sm">
+                  1. Ви передаєте кейс
+                </div>
+                <div className="rounded-2xl bg-[#E8F6F7] p-4 text-sm">
+                  2. Експерти аналізують
+                </div>
+                <div className="rounded-2xl bg-[#E8F6F7] p-4 text-sm">
+                  3. Ви отримуєте висновок
+                </div>
+              </div>
+            </div>
 
             <div className="mt-10 flex flex-wrap gap-4">
               <Link
                 href="/submit-case"
-                className="rounded-full bg-[#1CA0AB] px-6 py-3 text-sm font-medium text-white transition hover:opacity-90"
+                className="rounded-full bg-[#1CA0AB] px-7 py-3.5 text-sm font-semibold text-white transition hover:opacity-90"
               >
                 Передати кейс
               </Link>
 
               <Link
-                href="/for-doctors"
-                className="rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-white transition hover:border-white/40"
+                href="/doctor-application"
+                className="rounded-full border border-slate-300 bg-white px-7 py-3.5 text-sm font-semibold text-slate-900 transition hover:border-[#1CA0AB]"
               >
-                Для лікарів
+                Стати лікарем-партнером
+              </Link>
+
+              <Link
+                href="/why-important"
+                className="rounded-full border border-slate-300 bg-white px-7 py-3.5 text-sm font-semibold text-slate-900 transition hover:border-[#1CA0AB]"
+              >
+                Чому це важливо
               </Link>
             </div>
           </div>
+
+          <div className="rounded-3xl bg-white p-6 shadow-sm">
+            <div className="relative h-[430px] overflow-hidden rounded-2xl bg-slate-100">
+              <Image
+                src="/team/yemets.jpg"
+                alt="Професор Ілля Ємець"
+                fill
+                priority
+                className="object-contain p-4"
+              />
+            </div>
+            <p className="mt-5 text-sm leading-7 text-slate-600">
+              Платформа розвивається під клінічним керівництвом професора Іллі
+              Ємця та експертів у сфері пренатальної діагностики.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* VALUE */}
       <section className="bg-white">
         <div className="mx-auto max-w-7xl px-6 py-16 md:px-10">
           <div className="max-w-3xl">
-            <h2 className="text-3xl font-semibold md:text-4xl">
-              Час до народження — єдиний момент, коли можна змінити результат
-            </h2>
-
-            <p className="mt-6 text-lg leading-8 text-slate-600">
-              Саме на етапі вагітності можна вплинути на прогноз життя дитини:
-              обрати правильну клініку, команду та медичну стратегію.
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#1CA0AB]">
+              Що ми робимо
             </p>
+            <h2 className="mt-4 text-3xl font-semibold md:text-4xl">
+              Допомагаємо отримати експертну оцінку складного кардіологічного кейсу
+            </h2>
           </div>
 
           <div className="mt-10 grid gap-6 md:grid-cols-3">
-            <div className="rounded-3xl border border-slate-200 p-6">
-              <h3 className="font-semibold">Рання діагностика</h3>
-              <p className="mt-2 text-sm leading-7 text-slate-600">
-                Виявлення патологій ще до народження дитини та підготовка до
-                правильного маршруту допомоги.
+            <div className="rounded-3xl border border-slate-200 p-8">
+              <h3 className="text-xl font-semibold">Експертна інтерпретація</h3>
+              <p className="mt-3 text-sm leading-7 text-slate-600">
+                Аналіз матеріалів обстеження профільними спеціалістами, які мають
+                досвід роботи зі складними пренатальними кейсами.
               </p>
             </div>
 
-            <div className="rounded-3xl border border-slate-200 p-6">
-              <h3 className="font-semibold">Експертне рішення</h3>
-              <p className="mt-2 text-sm leading-7 text-slate-600">
-                Підтвердження складних та сумнівних випадків із формуванням
-                експертного висновку.
+            <div className="rounded-3xl border border-slate-200 p-8">
+              <h3 className="text-xl font-semibold">Клінічна ясність</h3>
+              <p className="mt-3 text-sm leading-7 text-slate-600">
+                Допомога у розумінні діагнозу, ризиків, наступних кроків та
+                можливого маршруту медичної допомоги.
               </p>
             </div>
 
-            <div className="rounded-3xl border border-slate-200 p-6">
-              <h3 className="font-semibold">Маршрутизація</h3>
-              <p className="mt-2 text-sm leading-7 text-slate-600">
-                Чітке розуміння подальших дій, місця народження та клінічної тактики.
+            <div className="rounded-3xl border border-slate-200 p-8">
+              <h3 className="text-xl font-semibold">Другий експертний погляд</h3>
+              <p className="mt-3 text-sm leading-7 text-slate-600">
+                Можливість отримати незалежну фахову оцінку без фізичного візиту
+                до іншої країни чи центру.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* HOW IT WORKS */}
       <section className="bg-[#E8F6F7]">
         <div className="mx-auto max-w-7xl px-6 py-16 md:px-10">
-          <div className="max-w-2xl">
+          <div className="max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#1CA0AB]">
-              Як це працює
+              З якими ситуаціями працюємо
             </p>
             <h2 className="mt-4 text-3xl font-semibold md:text-4xl">
-              Простий маршрут передачі кейсу
+              Фокус на складних випадках пренатальної кардіології
             </h2>
+            <p className="mt-5 text-slate-600">
+              Остаточний перелік патологій буде погоджено з медичною командою.
+              На сайті цей блок має показувати експертність простими словами.
+            </p>
           </div>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-4">
-            <div className="rounded-3xl bg-white p-6 shadow-sm">
-              <p className="text-sm font-semibold text-[#1CA0AB]">01</p>
-              <h3 className="mt-3 font-semibold">Передача доступу</h3>
-              <p className="mt-2 text-sm leading-7 text-slate-600">
-                Лікар або пацієнт надає посилання на захищене медичне хмарне сховище.
-              </p>
-            </div>
-
-            <div className="rounded-3xl bg-white p-6 shadow-sm">
-              <p className="text-sm font-semibold text-[#1CA0AB]">02</p>
-              <h3 className="mt-3 font-semibold">Перевірка якості</h3>
-              <p className="mt-2 text-sm leading-7 text-slate-600">
-                Адміністратор перевіряє повноту та якість матеріалів згідно протоколу.
-              </p>
-            </div>
-
-            <div className="rounded-3xl bg-white p-6 shadow-sm">
-              <p className="text-sm font-semibold text-[#1CA0AB]">03</p>
-              <h3 className="mt-3 font-semibold">Оплата</h3>
-              <p className="mt-2 text-sm leading-7 text-slate-600">
-                Після прийняття кейсу до розгляду відкривається наступний крок — оплата.
-              </p>
-            </div>
-
-            <div className="rounded-3xl bg-white p-6 shadow-sm">
-              <p className="text-sm font-semibold text-[#1CA0AB]">04</p>
-              <h3 className="mt-3 font-semibold">Експертний висновок</h3>
-              <p className="mt-2 text-sm leading-7 text-slate-600">
-                Результат повертається у погоджений канал взаємодії після обробки кейсу.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* MEDICAL CLOUD */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:px-10">
-          <div className="grid gap-8 md:grid-cols-[1.1fr_0.9fr] md:items-center">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#1CA0AB]">
-                Захищена інфраструктура
-              </p>
-              <h2 className="mt-4 text-3xl font-semibold md:text-4xl">
-                Робота через захищене медичне хмарне сховище
-              </h2>
-              <p className="mt-6 text-lg leading-8 text-slate-600">
-                На першому етапі платформа працює через зовнішнє захищене медичне
-                хмарне сховище без прямого завантаження вихідних матеріалів на сайт.
-                Це дозволяє зберегти безпечний маршрут передачі кейсів та закласти
-                основу для подальших інтеграцій.
-              </p>
-            </div>
-
-            <div className="rounded-3xl border border-slate-200 bg-[#F8FAFC] p-8">
-              <div className="space-y-4">
-                <div className="rounded-2xl bg-white p-4 shadow-sm">
-                  <p className="text-sm font-semibold text-slate-900">
-                    DICOM / PACS / захищені медичні системи
-                  </p>
-                </div>
-
-                <div className="rounded-2xl bg-white p-4 shadow-sm">
-                  <p className="text-sm font-semibold text-slate-900">
-                    Контроль доступу та перевірка якості
-                  </p>
-                </div>
-
-                <div className="rounded-2xl bg-white p-4 shadow-sm">
-                  <p className="text-sm font-semibold text-slate-900">
-                    Основа для формування клінічного датасету
-                  </p>
-                </div>
+          <div className="mt-10 grid gap-4 md:grid-cols-4">
+            {[
+              "Підозра на вроджену ваду серця",
+              "Складний або неясний результат УЗД",
+              "Потреба у другій експертній думці",
+              "Планування подальшої клінічної тактики",
+            ].map((item) => (
+              <div key={item} className="rounded-3xl bg-white p-6 shadow-sm">
+                <p className="text-sm font-medium leading-7">{item}</p>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ABOUT PLATFORM */}
-      <section className="bg-[#F8FAFC]">
-        <div className="mx-auto flex max-w-7xl flex-col gap-8 px-6 py-16 md:px-10 md:flex-row md:items-center md:justify-between">
-          <div className="max-w-2xl">
+      <section className="bg-white">
+        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-20 md:grid-cols-[0.9fr_1.1fr] md:px-10 md:items-center">
+          <div>
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#1CA0AB]">
-              Про платформу
+              Ваша команда експертів
             </p>
             <h2 className="mt-4 text-3xl font-semibold md:text-4xl">
-              Міжнародна експертиза, клініка, інвестиції та AI
+              Під керівництвом професора Іллі Ємця
             </h2>
-            <p className="mt-4 text-slate-600">
-              Yemets Academy об’єднує медичну експертизу, міжнародну клінічну
-              практику, інфраструктуру та AI-вектор розвитку в єдину систему.
+            <p className="mt-6 text-lg leading-8 text-slate-600">
+              Кейс розглядається в межах експертної медичної логіки, сформованої
+              навколо досвіду професора Іллі Ємця та спеціалістів з пренатальної
+              діагностики.
             </p>
-          </div>
 
-          <div className="flex flex-wrap gap-4">
             <Link
               href="/about"
-              className="rounded-full bg-[#1CA0AB] px-6 py-3 text-sm font-medium text-white transition hover:opacity-90"
+              className="mt-8 inline-flex rounded-full bg-[#1CA0AB] px-6 py-3 text-sm font-semibold text-white"
             >
-              Дізнатися більше
+              Детальніше про платформу
             </Link>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+              <div className="relative h-72 overflow-hidden rounded-2xl bg-slate-100">
+                <Image
+                  src="/team/yemets.jpg"
+                  alt="Професор Ілля Ємець"
+                  fill
+                  className="object-contain p-3"
+                />
+              </div>
+              <h3 className="mt-5 text-xl font-semibold">Професор Ілля Ємець</h3>
+              <p className="mt-2 text-sm text-[#1CA0AB]">Клінічне керівництво</p>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+              <div className="relative h-72 overflow-hidden rounded-2xl bg-slate-100">
+                <Image
+                  src="/team/kurkevych.jpg"
+                  alt="Андрій Куркевич"
+                  fill
+                  className="object-contain p-3"
+                />
+              </div>
+              <h3 className="mt-5 text-xl font-semibold">Андрій Куркевич</h3>
+              <p className="mt-2 text-sm text-[#1CA0AB]">Пренатальна діагностика</p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* FOR DOCTORS CTA */}
-      <section className="bg-[#0F172A]">
-        <div className="mx-auto flex max-w-7xl flex-col gap-8 px-6 py-16 md:px-10 md:flex-row md:items-center md:justify-between">
-          <div className="max-w-2xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#1CA0AB]">
-              Для лікарів
-            </p>
-            <h2 className="mt-4 text-3xl font-semibold text-white md:text-4xl">
-              Головна ціль платформи — робота з лікарями та клініками для покращення якісті життя кожною людини
+      <section className="bg-[#0B1F24]">
+        <div className="mx-auto max-w-7xl px-6 py-20 md:px-10">
+          <div className="max-w-3xl">
+            <h2 className="text-3xl font-semibold text-white md:text-4xl">
+              Передайте кейс для експертного розгляду
             </h2>
-            <p className="mt-4 text-white/70">
-              Передавайте кейси, отримуйте експертну підтримку та працюйте за
-              єдиним міжнародним стандартом.
+            <p className="mt-5 text-lg leading-8 text-white/70">
+              Після подачі кейсу команда перевірить матеріали, визначить статус
+              заявки та відкриє наступний крок.
             </p>
-          </div>
 
-          <div className="flex flex-wrap gap-4">
-            <Link
-              href="/for-doctors"
-              className="rounded-full bg-[#1CA0AB] px-6 py-3 text-sm font-medium text-white transition hover:opacity-90"
-            >
-              Для лікарів
-            </Link>
-            <Link
-              href="/submit-case"
-              className="rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-white transition hover:border-white/40"
-            >
-              Передати кейс
-            </Link>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Link
+                href="/submit-case"
+                className="rounded-full bg-[#1CA0AB] px-6 py-3 text-sm font-semibold text-white"
+              >
+                Передати кейс
+              </Link>
+
+              <Link
+                href="/doctor-application"
+                className="rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white"
+              >
+                Стати партнером
+              </Link>
+            </div>
           </div>
         </div>
       </section>

@@ -27,39 +27,35 @@ function Header() {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-10">
         <BrandLogo />
 
-        <nav className="hidden items-center gap-6 md:flex">
-          <Link href="/" className="text-sm text-slate-700 hover:text-slate-900">
-            Головна
-          </Link>
+<nav className="hidden items-center gap-6 md:flex">
+  <Link href="/" className="text-sm text-slate-700 hover:text-slate-900">
+    Головна
+  </Link>
 
-          <Link
-            href="/doctor-application"
-            className="text-sm text-slate-700 hover:text-slate-900"
-          >
-            Для лікарів
-          </Link>
+  <Link href="/about" className="text-sm text-slate-700 hover:text-slate-900">
+    Про платформу
+  </Link>
 
-          <Link
-            href="/submit-case"
-            className="text-sm text-slate-700 hover:text-slate-900"
-          >
-            Передати кейс
-          </Link>
+  <Link href="/why-important" className="text-sm text-slate-700 hover:text-slate-900">
+    Чому це важливо
+  </Link>
 
-          <Link
-            href="/about"
-            className="text-sm text-slate-700 hover:text-slate-900"
-          >
-            Про платформу
-          </Link>
-        </nav>
+  <Link href="/research" className="text-sm text-slate-700 hover:text-slate-900">
+    Дослідження
+  </Link>
 
-        <Link
-          href="/submit-case"
-          className="rounded-full bg-[#1CA0AB] px-5 py-2.5 text-sm font-medium text-white transition hover:opacity-90"
-        >
-          Передати кейс
-        </Link>
+  <Link href="/events" className="text-sm text-slate-700 hover:text-slate-900">
+    Події
+  </Link>
+
+  <Link href="/doctor-application" className="text-sm text-slate-700 hover:text-slate-900">
+    Для лікарів
+  </Link>
+
+  <Link href="/submit-case" className="text-sm text-slate-700 hover:text-slate-900">
+    Передати кейс
+  </Link>
+</nav>
       </div>
     </header>
   );
