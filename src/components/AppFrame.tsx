@@ -112,3 +112,16 @@ function Footer() {
     </footer>
   );
 }
+export default function AppFrame({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <>
+      <Header />
+      {children}
+      <Footer />
+    </>
+  );
+}
