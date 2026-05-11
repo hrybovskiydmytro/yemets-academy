@@ -63,48 +63,52 @@ function Header() {
 
 function Footer() {
   return (
-    <footer className="border-t border-slate-200 bg-white">
-      <div className="mx-auto max-w-7xl px-6 py-10 md:px-10">
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+    <footer className="bg-[#0B1F24] text-white">
+      <div className="mx-auto max-w-7xl px-6 py-12 md:px-10">
+        <div className="grid gap-10 md:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr]">
           <div>
-            <p className="text-sm font-semibold tracking-[0.16em] text-[#1CA0AB]">
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#1CA0AB]">
               YEMETS ACADEMY
             </p>
-            <p className="mt-3 max-w-xl text-sm leading-7 text-slate-600">
-              Платформа передачі та обробки медичних кейсів для експертного аналізу,
-              маршрутизації та формування клінічного датасету.
+
+            <p className="mt-4 max-w-sm text-sm leading-7 text-white/70">
+              Експертна діагностика серця майбутньої дитини за методологією
+              професора Іллі Ємця.
             </p>
           </div>
 
-          <div className="text-sm text-slate-500">Новий стандарт медицини</div>
+          <div>
+            <p className="text-sm font-semibold text-white">Платформа</p>
+            <div className="mt-4 space-y-3 text-sm text-white/60">
+              <p>Про платформу</p>
+              <p>Методологія</p>
+              <p>Дослідження</p>
+            </div>
+          </div>
+
+          <div>
+            <p className="text-sm font-semibold text-white">Для користувачів</p>
+            <div className="mt-4 space-y-3 text-sm text-white/60">
+              <p>Передати кейс</p>
+              <p>Для лікарів</p>
+              <p>Статус кейсу</p>
+            </div>
+          </div>
+
+          <div>
+            <p className="text-sm font-semibold text-white">Контакти</p>
+            <div className="mt-4 space-y-3 text-sm text-white/60">
+              <p>Yemets Academy</p>
+              <p>Expert prenatal cardiology</p>
+              <p>Ukraine / International</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-10 border-t border-white/10 pt-6 text-xs text-white/40">
+          © 2026 Yemets Academy. All rights reserved.
         </div>
       </div>
     </footer>
-  );
-}
-
-export default function AppFrame({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const pathname = usePathname();
-
-  const hideChrome =
-    pathname.startsWith("/investors") ||
-    pathname.startsWith("/early-access") ||
-    pathname.startsWith("/invest-application") ||
-    pathname.startsWith("/manage");
-
-  if (hideChrome) {
-    return <>{children}</>;
-  }
-
-  return (
-    <>
-      <Header />
-      {children}
-      <Footer />
-    </>
   );
 }
